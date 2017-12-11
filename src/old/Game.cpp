@@ -8,7 +8,7 @@
 #include<string>
 #include<sstream>
 using namespace std;
-int main() {
+int mn() {
 	bool playing = true;
 	do {
 	string diff, again;
