@@ -8,6 +8,7 @@
 #ifndef BEING_H_
 #define BEING_H_
 class Being {
+protected:
 	int strength, intelligence, dexterity, sBonus, iBonus, dBonus, currentHP,
 			maxHP, currentMana, maxMana, hitBonus;
 	void setStrengthBonus() {

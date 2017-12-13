@@ -5,29 +5,28 @@
  *      Author: cosmo
  */
 
-#include <boost/algorithm/string/predicate.hpp>
 #include <iostream>
 #include <string>
+//#include "strings.h"
 #include <vector>
 
 #include "Being.cpp"
 #include "HealthPot.cpp"
 #include "ManaPot.cpp"
 
-using namespace std;
 class Hero: public Being {
 
 protected:
-	string name;
-	vector<HealthPot> hPots;
-	vector<ManaPot> mPots;
+	std::string name;
+	std::vector<HealthPot> hPots;
+	std::vector<ManaPot> mPots;
 public:
-	Hero(int s, int i, int d, string n) {
+	Hero(int s, int i, int d, std::string n) {
 //		Being(s, i, d);
 		name = n;
 	}
 
-	string getName() {
+	std::string getName() {
 		return name;
 	}
 
@@ -35,9 +34,9 @@ public:
 	void addHealthPot(int pots) {
 		int added = 0;
 
-		for (int i = 0; hPots != NULL && i < sizeof(hPots); i++) {
+		for (int i = 0; i < sizeof(hPots); i++) {
 			if ((hPots[i].getPointsLeft() == 0)) {
-				hPots[i] = new HealthPot();
+				hPots[i] = HealthPot();
 				added++;
 				pots--;
 			}
@@ -49,9 +48,9 @@ public:
 				used++;
 			}
 		}
-		cout
-				<< used + " health pots used. " + added
-						+ " health pots added to inventory." << endl;
+		std::cout
+				<< used << " health pots used. " << added
+				<< " health pots added to inventory." << std::endl;
 	}
 
 
@@ -74,9 +73,9 @@ public:
 	void addManaPot(int pots) {
 		int added = 0;
 
-		for (int i = 0; mPots && i < sizeof(mPots); i++) {
+		for (int i = 0; i < sizeof(mPots); i++) {
 			if ((mPots[i].getPointsLeft() == 0)) {
-				mPots[i] = new HealthPot();
+				mPots[i] = HealthPot();
 				added++;
 				pots--;
 			}
@@ -88,22 +87,22 @@ public:
 				used++;
 			}
 		}
-		cout
-				<< used + " mana pots used. " + added
-						+ " mana pots added to inventory." << endl;
+		std::cout
+				<< used << " mana pots used. " << added
+				<< " mana pots added to inventory." << std::endl;
 	}
 
-	int getNumOfPots(string pot) {
+	int getNumOfPots(std::string pot) {
 		int count = 0;
-		if (boost::iequals(pot, "mana")) {
+		if (pot == "mana") {
 			for (ManaPot manaPot : mPots) {
-				if (manaPot) {
+				if (manaPot.getPointsLeft() != 0) {
 					count++;
 				}
 			}
-		} else if (boost::iequals(pot, "health")) {
+		} else if (0 == strcasecmp(pot, "health")) {
 			for (HealthPot healthPot : hPots) {
-				if (healthPot) {
+				if (healthPot.getPointsLeft() != 0) {
 					count++;
 				}
 			}
@@ -114,14 +113,14 @@ public:
 		return count;
 	}
 
-	string toString() {
-		return name + ": Current HP: " + currentHP() + ", Current mana: "
-				+ currentMana();
+	std::string toString() {
+		return name << ": Current HP: " << currentHP() << ", Current mana: "
+				<< currentMana();
 	}
 
 	void useManaPot() {
 		for (ManaPot mPot : mPots) {
-			if ((mPot) && (mPot.getPointsLeft() != 0)) {
+			if ((mPot.getPointsLeft() != 0)) {
 				addMana(mPot.use());
 
 			}
@@ -129,7 +128,7 @@ public:
 	}
 	void useHealthPot() {
 		for (HealthPot hPot : hPots) {
-			if ((hPot) && (hPot.getPointsLeft() != 0)) {
+			if ((hPot.getPointsLeft() != 0)) {
 				addHealth(hPot.use());
 
 			}

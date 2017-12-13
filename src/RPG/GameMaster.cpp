@@ -5,24 +5,24 @@
  *      Author: cosmo
  */
 
-#include <boost/algorithm/string/predicate.hpp>
+//#include <boost/algorithm/std::string.hpp>
 #include <stdlib.h>
 #include <iostream>
-#include <string>
+#include <std::string>
+#include "std::strings.h"
 #include <vector>
-#include"DiceBag.cpp
+#include"DiceBag.cpp"
 #include "Being.cpp"
 #include "Hero.cpp"
 
-using namespace std;
 class GameMaster {
 private:
-	DiceBag db = new DiceBag();
+	DiceBag db;
 
 	Hero hero;
 
-	static void combat(Being monster) {
-		cout<<"Rolling initiative.\n"<<endl;
+	void combat(Being monster) {
+		std::cout << "Rolling initiative.\n" << std::endl;
 
 		bool fail, turn, over;
 		int turns;
@@ -34,10 +34,11 @@ private:
 			do {
 				int heroRoll = db.getDiceRoll(20);
 				int monsterRoll = db.getDiceRoll(20);
-				cout<<("Hero initiative: " + heroRoll)<<endl;
-				cout<<("Monster initiative: " + monsterRoll)<<endl;
+				std::cout << ("Hero initiative: " + heroRoll) << std::endl;
+				std::cout << ("Monster initiative: " + monsterRoll)
+						<< std::endl;
 				if (heroRoll == monsterRoll) {
-					cout<<("Tie. Rerolling.")<<endl;
+					std::cout << ("Tie. Rerolling.") << std::endl;
 					fail = true;
 				} else {
 					turn = heroRoll > monsterRoll;
@@ -45,19 +46,19 @@ private:
 			}while (fail);
 
 			do {
-				cout << "" << endl;
-				cout<<(hero)<<endl;
-				cout << "" << endl;
-				cout<<(monster)<<endl;
-				cout << "" << endl;
+				std::cout << "" << std::endl;
+				std::cout << hero << std::endl;
+				std::cout << "" << std::endl;
+				std::cout << monster << std::endl;
+				std::cout << "" << std::endl;
 				if (turn) {
 					// hero
-					cout << "" << endl;
-					cout<<("Hero's turn.")<<endl;
-					cout << "" << endl;
+					std::cout << "" << std::endl;
+					std::cout << ("Hero's turn.") << std::endl;
+					std::cout << "" << std::endl;
 					int hpot = hero.getNumOfPots("health");
 					int mpot = hero.getNumOfPots("mana");
-					vector<string> inputs;
+					std::vector<std::string> inputs;
 					if ((mpot == 0) && (hpot == 0)) {
 						inputs.push_back("Normal attack");
 						inputs.push_back("Special attack");
@@ -77,9 +78,9 @@ private:
 						inputs.push_back("Use mana pot");
 
 					}
-					cout<<inputs<<endl;
+					std::cout << inputs << std::endl;
 					int choice;
-					cin >> choice;
+					std::cin >> choice;
 					int damage = 0;
 					switch (choice) {
 						case 1:
@@ -92,15 +93,21 @@ private:
 						case 3:
 						if (hpot == 0) {
 							hero.useManaPot();
-							cout<<(hero.getCurrentMana() + ": current mana.")<<endl;
+							std::cout
+									<< (hero.getCurrentMana()
+											+ ": current mana.")
+									<< std::endl;
 						} else {
 							hero.useHealthPot();
-							cout<<(hero.getCurrentHP() + ": current HP.")<<endl;
+							std::cout
+									<< (hero.getCurrentHP() + ": current HP.")
+									<< std::endl;
 						}
 						break;
 						case 4:
 						hero.useManaPot();
-						cout<<(hero.getCurrentMana() + ": current mana.")<<endl;
+						std::cout << (hero.getCurrentMana() + ": current mana.")
+								<< std::endl;
 						break;
 					}
 					bool hit = false;
@@ -108,8 +115,10 @@ private:
 						if (damage > 0) {
 							int attackRoll = db.getDiceRoll(20);
 							int defendRoll = db.getDiceRoll(20);
-							cout<<("Attacker's roll: " + attackRoll)<<endl;
-							cout<<("Defender's roll: " + defendRoll)<<endl;
+							std::cout << ("Attacker's roll: " + attackRoll)
+									<< std::endl;
+							std::cout << ("Defender's roll: " + defendRoll)
+									<< std::endl;
 							if ((defendRoll == 20) && (attackRoll == 20)) {
 								hit = (attackRoll + hero.getStrikeBonus()) > (defendRoll + monster.getDodgeBonus());
 							} else if ((attackRoll == 1)) {
@@ -137,22 +146,22 @@ private:
 						}
 
 						if (hit) {
-							cout << ("Damage: " + damage) << endl;
+							std::cout << ("Damage: " + damage) << std::endl;
 
 							monster.takeDamage(damage);
 						} else {
-							cout<<("Your attack failed.")<<endl;
+							std::cout << ("Your attack failed.") << std::endl;
 
 						}
 					}
-					cout << "" << endl;
+					std::cout << "" << std::endl;
 					turn = false;
 					turns++;
 				} else {
 					// monster
-					cout << "" << endl;
-					cout<<("Monster's turn.")<<endl;
-					cout << "" << endl;
+					std::cout << "" << std::endl;
+					std::cout << ("Monster's turn.") << std::endl;
+					std::cout << "" << std::endl;
 					int damage = 0;
 					int choose = rand() % 2;
 					switch (choose) {
@@ -169,8 +178,10 @@ private:
 					if (damage > 0) {
 						int attackRoll = db.getDiceRoll(20);
 						int defendRoll = db.getDiceRoll(20);
-						cout<<("Attacker's roll: " + attackRoll)<<endl;
-						cout<<("Defender's roll: " + defendRoll)<<endl;
+						std::cout << ("Attacker's roll: " + attackRoll)
+								<< std::endl;
+						std::cout << ("Defender's roll: " + defendRoll)
+								<< std::endl;
 						if ((defendRoll == 20) && (attackRoll == 20)) {
 							hit = (attackRoll + monster.getStrikeBonus()) > (defendRoll + hero.getDodgeBonus());
 						} else if ((attackRoll == 1)) {
@@ -198,29 +209,29 @@ private:
 					}
 
 					if (hit) {
-						cout<<("Damage: " + damage)<<endl;
+						std::cout << ("Damage: " + damage) << std::endl;
 
 						hero.takeDamage(damage);
 					} else {
-						cout<<("The monster's attack failed.");
+						std::cout << ("The monster's attack failed.");
 					}
 					turn = true;
 					turns++;
-					cout << "" << endl;
+					std::cout << "" << std::endl;
 				}
 
 				over = !hero.isAlive() || !monster.isAlive();
 			}while ((turns < 5) && !over);
 			if (!over) {
-				cout<<("Rerolling initiative.")<<endl;
+				std::cout << ("Rerolling initiative.") << std::endl;
 			}
 		}while (!over);
 		rewards();
 	}
 
-	Being createBeing(string type) {
-		vector<int> rolls;
-		vector<int> stats = {0, 0, 0};
+	Being createBeing(std::string type) {
+		std::vector<int> rolls;
+		std::vector<int> stats = { 0, 0, 0 };
 		for (int i = 0; i < sizeof(stats); i++) {
 			rolls = db.multiRoll(6, 3);
 
@@ -236,11 +247,11 @@ private:
 			}
 		}
 		if (type) {
-		if (boost::iequals(type, "skeleton")) {
+			if (0 == strcasecmp(type, "skeleton")) {
 				return Being(stats[0], stats[1], stats[2]);
-		} else if (boost::iequals(type, "giant")) {
+			} else if (0 == strcasecmp(type, "giant")) {
 				return Being(stats[0], stats[1], stats[2]);
-		} else if (boost::iequals(type, "giant flying crab")) {
+			} else if (0 == strcasecmp(type, "giant flying crab")) {
 				return Being(stats[0], stats[1], stats[2]);
 			} else {
 				return NULL;
@@ -251,9 +262,9 @@ private:
 
 	}
 
-	Hero createHero(string name) {
-		vector<int> rolls = new int[3];
-		vector<int> stats = {0, 0, 0};
+	Hero createHero(std::string name) {
+		std::vector<int> rolls(3);
+		std::vector<int> stats = { 0, 0, 0 };
 	for (int i = 0; i < sizeof(stats); i++) {
 			rolls = db.multiRoll(6, 3);
 			for (int j : rolls) {
@@ -275,17 +286,17 @@ private:
 	bool rerollHero() {
 	char input;
 
-	cout << "Would you like to reroll? y/n" << endl;
-	cin >> input;
+		std::cout << "Would you like to reroll? y/n" << std::endl;
+		std::cin >> input;
 	return input == 'y' ? true : false;
 	}
 
 	void rewards() {
 		if (hero.isAlive()) {
-			cout<<("You killed it!");
+			std::cout << ("You killed it!") << std::endl;
 		int num = rand() % 4, manas = 0, healths = 0;
 
-			cout<<("You got " + num + " potions!");
+			std::cout << ("You got " + num + " potions!") << std::endl;
 
 			for (int i = 0; i < num; i++) {
 			if (rand() % 1 == 0) {
@@ -296,11 +307,13 @@ private:
 					manas++;
 				}
 			}
-			cout<<("You got " + manas + " mana pots and " + healths + " health pots.");
+			std::cout
+					<< ("You got " + manas + " mana pots and " + healths
+							+ " health pots.") << std::endl;
 
 		} else {
-			cout<<("Too bad. So sad.");
-		cerr << "YOU DIED" << endl;
+			std::cout << ("Too bad. So sad.") << std::endl;
+			std::cerr << "YOU DIED" << std::endl;
 		}
 	}
 
@@ -310,15 +323,16 @@ private:
 
 	void setup() {
 		do {
-		cout << "Enter the name for your hero:" << endl;
-		string nam;
-		cin >> nam;
+			std::cout << "Enter the name for your hero:" << std::endl;
+			std::string nam;
+			std::cin >> nam;
 		hero = createHero(nam);
 
-			cout
-					<< (hero.getName() + ", Strength: " + hero.getStrength()
-							+ ", Dexterity: " + hero.getDexterity()
-					+ ", Intelligence: " + hero.getIntelligence());
+			std::cout
+					<< (hero.getName() << ", Strength: " << hero.getStrength()
+							<< ", Dexterity: " << hero.getDexterity()
+							<< ", Intelligence: " << hero.getIntelligence())
+					<< std::endl;
 		}while (rerollHero());
 	}
 public:
@@ -327,16 +341,16 @@ public:
 
 		char input;
 
-		cout << "Would you like to fight? y/n" << endl;
-		cin >> input;
+		std::cout << "Would you like to fight? y/n" << std::endl;
+		std::cin >> input;
 
 		bool fight = input == 'y' ? true : false;
 		while (fight) {
-			string creature = NULL;
+			std::string creature;
 			int choice;
-			cin >> choice;
-			cout << "1 for Skeleton, 2 for Giant, 3 for Giant flying crab."
-					<< endl;
+			std::cin >> choice;
+			std::cout << "1 for Skeleton, 2 for Giant, 3 for Giant flying crab."
+					<< std::endl;
 			switch (choice) {
 			case 1:
 				creature = "skeleton";
@@ -350,8 +364,8 @@ public:
 			}
 			combat(createBeing(creature));
 		}
-		cout << "Would you like to fight another? y/n" << endl;
-		cin >> input;
+		std::cout << "Would you like to fight another? y/n" << std::endl;
+		std::cin >> input;
 
 		if (input == 'n' ? true : false) {
 			fight = false;
