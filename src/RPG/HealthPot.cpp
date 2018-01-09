@@ -4,24 +4,19 @@
  *  Created on: Dec 11, 2017
  *      Author: cosmo
  */
+#include"HealthPot.h"
 
-class HealthPot {
-
-private:
-	int points;
-
-public:
-	HealthPot() {
+HealthPot::HealthPot() {
 		int rand();
 		points = rand() % 10;
 	}
-	int getPointsLeft() {
+
+int HealthPot::getPointsLeft() {
 		return points;
 	}
-	int use() {
+
+int HealthPot::use() {
 		int temp = points;
 		points = 0;
 		return temp;
 	}
-};
-

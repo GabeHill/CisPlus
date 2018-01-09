@@ -6,10 +6,20 @@
  */
 
 #include <string>
+
 #include "Being.h"
 
-
-
+Being::Being(int s, int i, int d) {
+	strength = s;
+	intelligence = i;
+	dexterity = d;
+	maxMana = intelligence * 5;
+	maxHP = strength * 5;
+	setHitBonus();
+	setStrengthBonus();
+	setIntBonus();
+	setDodgeBonus();
+}
 
 	int Being::getCurrentMana() {
 		return currentMana;

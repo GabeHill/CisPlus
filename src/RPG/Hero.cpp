@@ -7,35 +7,33 @@
 
 #include <iostream>
 #include <string>
-//#include "strings.h"
 #include <vector>
+#include <string>
+#include <boost/algorithm/string.hpp>
 
-#include "Being.cpp"
+#include"Hero.h"
+#include "Being.h"
 #include "HealthPot.cpp"
 #include "ManaPot.cpp"
 
-class Hero: public Being {
 
-protected:
-	std::string name;
-	std::vector<HealthPot> hPots;
-	std::vector<ManaPot> mPots;
-public:
-	Hero(int s, int i, int d, std::string n) {
-//		Being(s, i, d);
-		name = n;
+
+	Hero::Hero(int s, int i, int d, std::string n) :
+			Being(s, i, d) {
+	name = n;
 	}
 
-	std::string getName() {
+std::string Hero::getName() const {
 		return name;
 	}
 
 
-	void addHealthPot(int pots) {
+	void Hero::addHealthPot(int pots) {
 		int added = 0;
 
 		for (int i = 0; i < sizeof(hPots); i++) {
-			if ((hPots[i].getPointsLeft() == 0)) {
+		HealthPot p = hPots[i];
+		if (p.getPointsLeft() == 0) {
 				hPots[i] = HealthPot();
 				added++;
 				pots--;
@@ -53,16 +51,7 @@ public:
 				<< " health pots added to inventory." << std::endl;
 	}
 
-
-	void addHealth(int health) {
-		currentHP += health;
-		if (currentHP > maxHP) {
-			currentHP = maxHP;
-		}
-	}
-
-
-	void addMana(int mana) {
+	void Hero::addMana(int mana) {
 		currentMana += mana;
 		if (currentMana > maxMana) {
 			currentMana = maxMana;
@@ -70,11 +59,13 @@ public:
 	}
 
 
-	void addManaPot(int pots) {
+	void Hero::addManaPot(int pots) {
 		int added = 0;
 
 		for (int i = 0; i < sizeof(mPots); i++) {
-			if ((mPots[i].getPointsLeft() == 0)) {
+		HealthPot p = hPots[i];
+
+		if (p.getPointsLeft() == 0) {
 				mPots[i] = HealthPot();
 				added++;
 				pots--;
@@ -92,7 +83,7 @@ public:
 				<< " mana pots added to inventory." << std::endl;
 	}
 
-	int getNumOfPots(std::string pot) {
+	int Hero::getNumOfPots(std::string pot) const {
 		int count = 0;
 		if (pot == "mana") {
 			for (ManaPot manaPot : mPots) {
@@ -100,7 +91,7 @@ public:
 					count++;
 				}
 			}
-		} else if (0 == strcasecmp(pot, "health")) {
+	} else if (boost::iequals(pot, "health")) {
 			for (HealthPot healthPot : hPots) {
 				if (healthPot.getPointsLeft() != 0) {
 					count++;
@@ -113,12 +104,12 @@ public:
 		return count;
 	}
 
-	std::string toString() {
+	std::string Hero::toString() const {
 		return name << ": Current HP: " << currentHP() << ", Current mana: "
 				<< currentMana();
 	}
 
-	void useManaPot() {
+	void Hero::useManaPot() {
 		for (ManaPot mPot : mPots) {
 			if ((mPot.getPointsLeft() != 0)) {
 				addMana(mPot.use());
@@ -126,7 +117,7 @@ public:
 			}
 		}
 	}
-	void useHealthPot() {
+	void Hero::useHealthPot() {
 		for (HealthPot hPot : hPots) {
 			if ((hPot.getPointsLeft() != 0)) {
 				addHealth(hPot.use());
@@ -135,5 +126,4 @@ public:
 		}
 	}
 
-};
 

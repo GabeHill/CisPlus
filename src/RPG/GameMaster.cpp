@@ -5,20 +5,20 @@
  *      Author: cosmo
  */
 
-//#include <boost/algorithm/std::string.hpp>
 #include <stdlib.h>
 #include <iostream>
-#include <std::string>
-#include "std::strings.h"
+#include <string>
 #include <vector>
-#include"DiceBag.cpp"
-#include "Being.cpp"
-#include "Hero.cpp"
+#include <boost/algorithm/string.hpp>
+
+#include "strings.h"
+#include"DiceBag.h"
+#include "Being.h"
+#include "Hero.h"
 
 class GameMaster {
 private:
 	DiceBag db;
-
 	Hero hero;
 
 	void combat(Being monster) {
@@ -42,20 +42,21 @@ private:
 					fail = true;
 				} else {
 					turn = heroRoll > monsterRoll;
+					fail = true;
 				}
 			}while (fail);
 
 			do {
-				std::cout << "" << std::endl;
+				std::cout << std::endl;
 				std::cout << hero << std::endl;
-				std::cout << "" << std::endl;
+				std::cout << std::endl;
 				std::cout << monster << std::endl;
-				std::cout << "" << std::endl;
+				std::cout << std::endl;
 				if (turn) {
 					// hero
-					std::cout << "" << std::endl;
+					std::cout << std::endl;
 					std::cout << ("Hero's turn.") << std::endl;
-					std::cout << "" << std::endl;
+					std::cout << std::endl;
 					int hpot = hero.getNumOfPots("health");
 					int mpot = hero.getNumOfPots("mana");
 					std::vector<std::string> inputs;
@@ -154,14 +155,14 @@ private:
 
 						}
 					}
-					std::cout << "" << std::endl;
+					std::cout << std::endl;
 					turn = false;
 					turns++;
 				} else {
 					// monster
-					std::cout << "" << std::endl;
+					std::cout << std::endl;
 					std::cout << ("Monster's turn.") << std::endl;
-					std::cout << "" << std::endl;
+					std::cout << std::endl;
 					int damage = 0;
 					int choose = rand() % 2;
 					switch (choose) {
@@ -217,7 +218,7 @@ private:
 					}
 					turn = true;
 					turns++;
-					std::cout << "" << std::endl;
+					std::cout << std::endl;
 				}
 
 				over = !hero.isAlive() || !monster.isAlive();
@@ -247,11 +248,11 @@ private:
 			}
 		}
 		if (type) {
-			if (0 == strcasecmp(type, "skeleton")) {
+			if (boost::iequals(type, "skeleton")) {
 				return Being(stats[0], stats[1], stats[2]);
-			} else if (0 == strcasecmp(type, "giant")) {
+			} else if (boost::iequals(type, "giant")) {
 				return Being(stats[0], stats[1], stats[2]);
-			} else if (0 == strcasecmp(type, "giant flying crab")) {
+			} else if (boost::iequals(type, "giant flying crab")) {
 				return Being(stats[0], stats[1], stats[2]);
 			} else {
 				return NULL;
@@ -335,7 +336,7 @@ private:
 					<< std::endl;
 		}while (rerollHero());
 	}
-public:
+
 	void run() {
 		setup();
 
@@ -371,6 +372,11 @@ public:
 			fight = false;
 		}
 
+	}
+public:
+	int main() {
+		run();
+		return 0;
 	}
 
 

@@ -5,20 +5,19 @@
  *      Author: cosmo
  */
 
-
+#include"DiceBag.h"
 #include<vector>
-#include"Die.cpp"
-class DiceBag {
-public:
-	DiceBag() {
+#include"Die.h"
+
+DiceBag::DiceBag() {
 
 	}
 
-	int getDiceRoll(int sides) {
+int DiceBag::getDiceRoll(int sides) {
 		return Die(sides).roll();
 	}
 
-	std::vector<int> multiRoll(int sides, int numOfDie) {
+std::vector<int> DiceBag::multiRoll(int sides, int numOfDie) {
 		std::vector<int> nums(numOfDie);
 	for (int i = 0; i < numOfDie; i++) {
 
@@ -26,4 +25,4 @@ public:
 		}
 		return nums;
 	}
-};
+

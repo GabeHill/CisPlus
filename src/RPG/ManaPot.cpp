@@ -4,24 +4,20 @@
  *  Created on: Dec 11, 2017
  *      Author: cosmo
  */
+#include"ManaPot.h"
 
-class ManaPot {
-
-private:
-	int points;
-
-public:
-	ManaPot() {
+ManaPot::ManaPot() {
 		int rand();
 		points = rand() % 10;
 	}
-	int getPointsLeft() {
+
+int ManaPot::getPointsLeft() {
 		return points;
 	}
 
-	int use() {
+int ManaPot::use() {
 		int temp = points;
 		points = 0;
 		return temp;
 	}
-};
+

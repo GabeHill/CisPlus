@@ -5,21 +5,17 @@
  *      Author: cosmo
  */
 
-class Die {
-private:
-	int sides;
+#include"Die.h"
 
-public:
-
-	Die(int s) {
+Die::Die(int s) {
 		sides = s;
 	}
 
-	int roll() {
+int Die::roll() {
 		int rand();
 		return (rand() % sides);
 	}
-};
+
 
 
 
