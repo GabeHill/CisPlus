@@ -1,3 +1,6 @@
-src/RPG/DiceBag.o: ../src/RPG/DiceBag.cpp ../src/RPG/Die.cpp
+src/RPG/DiceBag.o: ../src/RPG/DiceBag.cpp ../src/RPG/DiceBag.h \
+ ../src/RPG/Die.h
 
-../src/RPG/Die.cpp:
+../src/RPG/DiceBag.h:
+
+../src/RPG/Die.h:

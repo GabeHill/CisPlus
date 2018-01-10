@@ -7,8 +7,10 @@
 
 #ifndef BEING_H_
 #define BEING_H_
+//#include "Hero.h"
 class Being {
 protected:
+//	friend Hero;
 	int strength, intelligence, dexterity, sBonus, iBonus, dBonus, currentHP,
 			maxHP, currentMana, maxMana, hitBonus;
 	void setStrengthBonus() {
@@ -79,8 +81,5 @@ public:
 	void addHealth(int health);
 //	void addMana(int mana);
 };
-
-
-
 
 #endif /* BEING_H_ */

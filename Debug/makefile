@@ -8,8 +8,7 @@ RM := rm -rf
 
 # All of the sources participating in the build are defined here
 -include sources.mk
--include src/old/subdir.mk
--include src/RPG/subdir.mk
+-include src/subdir.mk
 -include subdir.mk
 -include objects.mk
 
@@ -39,19 +38,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: CisPlus.exe
+all: Why
 
 # Tool invocations
-CisPlus.exe: $(OBJS) $(USER_OBJS)
+Why: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
-	@echo 'Invoking: Cygwin C++ Linker'
-	g++  -o "CisPlus.exe" $(OBJS) $(USER_OBJS) $(LIBS)
+	@echo 'Invoking: GCC C++ Linker'
+	g++  -o "Why" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(OBJS)$(C_UPPER_DEPS)$(CXX_DEPS)$(CPP_DEPS)$(C_DEPS) CisPlus.exe
+	-$(RM) $(CC_DEPS)$(C++_DEPS)$(EXECUTABLES)$(C_UPPER_DEPS)$(CXX_DEPS)$(OBJS)$(CPP_DEPS)$(C_DEPS) Why
 	-@echo ' '
 
 .PHONY: all clean dependents

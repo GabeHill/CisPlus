@@ -4,19 +4,37 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../src/Gam.cpp 
+../src/Being.cpp \
+../src/DiceBag.cpp \
+../src/Die.cpp \
+../src/GameMaster.cpp \
+../src/HealthPot.cpp \
+../src/Hero.cpp \
+../src/ManaPot.cpp 
 
 OBJS += \
-./src/Gam.o 
+./src/Being.o \
+./src/DiceBag.o \
+./src/Die.o \
+./src/GameMaster.o \
+./src/HealthPot.o \
+./src/Hero.o \
+./src/ManaPot.o 
 
 CPP_DEPS += \
-./src/Gam.d 
+./src/Being.d \
+./src/DiceBag.d \
+./src/Die.d \
+./src/GameMaster.d \
+./src/HealthPot.d \
+./src/Hero.d \
+./src/ManaPot.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
 src/%.o: ../src/%.cpp
 	@echo 'Building file: $<'
-	@echo 'Invoking: Cygwin C++ Compiler'
+	@echo 'Invoking: GCC C++ Compiler'
 	g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '

@@ -10,7 +10,6 @@ CPP_SRCS += \
 ../src/RPG/GameMaster.cpp \
 ../src/RPG/HealthPot.cpp \
 ../src/RPG/Hero.cpp \
-../src/RPG/Main.cpp \
 ../src/RPG/ManaPot.cpp 
 
 OBJS += \
@@ -20,7 +19,6 @@ OBJS += \
 ./src/RPG/GameMaster.o \
 ./src/RPG/HealthPot.o \
 ./src/RPG/Hero.o \
-./src/RPG/Main.o \
 ./src/RPG/ManaPot.o 
 
 CPP_DEPS += \
@@ -30,7 +28,6 @@ CPP_DEPS += \
 ./src/RPG/GameMaster.d \
 ./src/RPG/HealthPot.d \
 ./src/RPG/Hero.d \
-./src/RPG/Main.d \
 ./src/RPG/ManaPot.d 
 
 

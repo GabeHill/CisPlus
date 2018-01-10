@@ -4,20 +4,24 @@
  *  Created on: Dec 11, 2017
  *      Author: cosmo
  */
+#include <ctime>
+#include <cstdlib>
+
 #include"ManaPot.h"
 
 ManaPot::ManaPot() {
-		int rand();
-		points = rand() % 10;
-	}
+	srand(time(NULL));
+	int rand();
+	points = rand() % 10;
+}
 
 int ManaPot::getPointsLeft() {
-		return points;
-	}
+	return points;
+}
 
 int ManaPot::use() {
-		int temp = points;
-		points = 0;
-		return temp;
-	}
+	int temp = points;
+	points = 0;
+	return temp;
+}
 
